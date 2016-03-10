@@ -1,5 +1,6 @@
 package dz.esi.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,8 @@ import dz.esi.model.Book;
 public class MainActivity extends AppCompatActivity {
     CutomAdapter cutomAdapter;
     ListView listView;
-
+    //TODO get the ListView and set adapter at the fragment class
+    //TODO handle only the itemClick event listener here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listView);
+        //TODO copy to fragment class
         cutomAdapter = new CutomAdapter(this,getBookList());
         listView.setAdapter(cutomAdapter);
+        //TODO : let this here
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // implémenter le filtre
+        //TODO : let this here
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -53,9 +58,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public boolean isTwoPane() {
+        View view = findViewById(R.id.frameLayout);
+        return (view != null);
+    }
 
+    public void showDetail(String item) {
+        if (isTwoPane()) {
+            DetailFragment detailFragment = new DetailFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("item",item);
+            detailFragment.setArguments(bundle);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout,detailFragment);
+            ft.commit();
+
+        }
+        else {
+            Intent intent = new Intent(this,DetailActivity.class);
+            intent.putExtra("item",item);
+            startActivity(intent);
+        }
+
+    }
     // insérer des livres
-
+    //TODO: Copy to fragment class
     public List<Book> getBookList() {
         String[] listSummary = getResources().getStringArray(R.array.summary);
         List<Book> bookList = new ArrayList<Book>();

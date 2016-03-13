@@ -18,28 +18,13 @@ public class DetailActivity extends AppCompatActivity {
         DetailFragment detailFragment = new DetailFragment();
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
+        bundle.putSerializable("book",intent.getSerializableExtra("book"));
+
         //TODO : Set the bundle properties with Intent properties then replace the layout
         //TODO : delete views and put them at  fragment level
         /*Intent intent = getIntent();
         Book book = (Book) intent.getSerializableExtra("book");
-        ImageView coverImage = (ImageView) findViewById(R.id.coverImage);
-        TextView textSummary = (TextView) findViewById(R.id.summary);
-        TextView textYear = (TextView) findViewById(R.id.yearText);
-        TextView textTitle = (TextView) findViewById(R.id.textTitle);
-        TextView textEditor = (TextView) findViewById(R.id.editorText);
-        TextView textAuthor = (TextView) findViewById(R.id.textAuthor);
-        coverImage.setImageResource(book.getCover());
-        textSummary.setText(book.getSummary());
-        textTitle.setText("Titre: "+book.getTitle());
-        textYear.setText("Année d'édition: "+book.getYear());
-        textEditor.setText("Editeur: "+book.getEditor());
-        textAuthor.setText("Auteur(s): "+book.getAuthors().get(0));
-        if(book.getAuthors().size()>1) {
-            //textAuthorLabel.setText("Auteurs: ");
-            for(int i=1;i<book.getAuthors().size();i++) {
-                textAuthor.setText(textAuthor.getText()+", "+book.getAuthors().get(i));
-            }
-        }*/
+        */
         detailFragment.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, detailFragment);
